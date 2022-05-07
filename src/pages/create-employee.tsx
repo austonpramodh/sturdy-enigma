@@ -3,23 +3,18 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Link from '../Link';
-import ProTip from '../ProTip';
 import Copyright from '../Copyright';
+import { Employee } from '@prisma/client';
 import prisma from '../lib/prisma';
-import { Employee } from '@prisma/client'
-import EmployeeTable from '../components/EmployeeTable';
+import CreateEmployeeForm from '../components/CreateEmployeeForm';
 
 type Props = {
   data: Employee[]
 }
 
-const Home: NextPage<Props> = ({ data }) => {
-  
-  React.useEffect(() => {
-    console.log(data)
-  }, [])
-
+const CreateEmployee: NextPage<Props> = ({data}) => {
   return (
     <Container maxWidth="lg">
       <Box
@@ -32,12 +27,15 @@ const Home: NextPage<Props> = ({ data }) => {
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Empoyee Payroll Management!
+          Create Employee!!
         </Typography>
-        <EmployeeTable employees={data} />
-        <Link mt={2} mb={2} href="/create-employee" color="secondary">
-          Create Employee?
-        </Link>
+        {/* Form */}
+        <CreateEmployeeForm employees={data} />
+        <Box maxWidth="sm" mb={2}>
+          <Button variant="contained" component={Link} noLinkStyle href="/">
+            See Employees
+          </Button>
+        </Box>
         <Copyright />
       </Box>
     </Container>
@@ -62,4 +60,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 }
 
 
-export default Home;
+export default CreateEmployee;

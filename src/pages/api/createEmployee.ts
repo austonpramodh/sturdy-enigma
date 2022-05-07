@@ -1,8 +1,10 @@
+import { Employee } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from "../../lib/prisma"
 
 type Data = {
-  name: string
+  success: true
+  data: Employee
 }
 
 type RequestData = {
@@ -33,7 +35,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
   })
 
-
-  console.log(data, createdEmployee)
-  res.status(200).json({ name: 'John Doe' })
+  res.status(200).json({ success: true, data:createdEmployee })
 }
